@@ -17,7 +17,7 @@ def main():
     df = extract_data_obj.extract()
 
     pre_processing_obj = PreProcessing()
-    df = pre_processing_obj.process(df)
+    df = pre_processing_obj.process(df.head())
 
     logging.info("Execution completed successfully")
 
