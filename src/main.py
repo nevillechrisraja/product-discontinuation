@@ -11,6 +11,7 @@ def main():
     In this method we will be performing the following operations.
     1. Extract input data from source
     2. Perform data pre-processing steps
+    3. Perform ML modelling
     """
     logging.info("Execution started successfully")
 
