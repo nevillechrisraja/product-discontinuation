@@ -3,18 +3,28 @@ from sklearn.model_selection import train_test_split
 from xgboost import XGBClassifier
 import os
 import pickle
-import sys
+import ast
 
+
+from configparser import ConfigParser
+
+config = ConfigParser()
+file = "config.ini"
+config.read(file)
+
+feature_imp_cols = config["hyperparams"]["feature_imp_cols"]
+model_dir = config["model_path"]["model_dir"]
+filename = config["model_path"]["filename"]
 
 class Modelling:
     def process(self, df):
-        feature_imp_cols = ['HierarchyLevel2', 'CatEdition', 'ActualsPerWeek', 'Status_RO']
         target_col = 'DiscontinuedTF'
         x_train, x_test, y_train, y_test = self.dataset_split(feature_imp_cols, target_col, df)
         model = self.fit_model(x_train, y_train)
         self.save_model(model)
 
     def dataset_split(self, imp_cols, target_col, df):
+        imp_cols = ast.literal_eval(imp_cols)
         x = df[imp_cols]
         y = df[target_col]
         x_train, x_test, y_train, y_test = \
@@ -27,8 +37,6 @@ class Modelling:
         return model
 
     def save_model(self, model):
-        model_dir = 'src/train/'
-        filename = 'model'
         path = os.path.join(model_dir)
         with open(path + '/' + filename + '.sav', 'wb') as f:
             pickle.dump(model, f)

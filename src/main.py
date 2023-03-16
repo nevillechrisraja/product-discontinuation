@@ -2,6 +2,7 @@ import logging
 from fetch.extract_data import ExtractData
 from factory.pre_processing import PreProcessing
 from train.modelling import Modelling
+from predict.prediction import Prediction
 
 logging.basicConfig(filename = "log.txt", level = logging.DEBUG,
                     format = "%(asctime)s %(message)s", datefmt = "%m/%d/%Y %I:%M:%S %p")
@@ -23,6 +24,11 @@ def main():
 
     modelling_obj = Modelling()
     modelling_obj.process(df)
+
+    predict_obj = Prediction()
+    predict_obj.process(df)
+
+
 
     logging.info("Execution completed successfully")
 
