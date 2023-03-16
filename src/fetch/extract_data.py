@@ -1,6 +1,7 @@
 import logging
 import pandas as pd
 
+
 class ExtractData:
     """
     This class handles the data extraction
