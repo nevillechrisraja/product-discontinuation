@@ -10,7 +10,7 @@ class PreProcessing:
     """
     This class handles entire data preprocessing steps
     """
-    def process(self, df):
+    def process(self, df) -> pd.DataFrame:
         null_count, duplicates = self.check_null(df)
         categorical_cols = ['Seasonal', 'SpringSummer', 'DiscontinuedTF']
         df = self.encode_binary_features(categorical_cols, df)
@@ -26,12 +26,12 @@ class PreProcessing:
         return null_count, duplicates
 
 
-    def encode_binary_features(self, cols, df):
+    def encode_binary_features(self, cols, df) -> pd.DataFrame:
         for i in cols:
             df[i] = df[i].map({True: 1, False: 0})
         return df
 
-    def encode_multi_features(self, cols, df):
+    def encode_multi_features(self, cols, df) -> pd.DataFrame:
         ohe = OneHotEncoder(sparse = False, handle_unknown = 'ignore')
         for i in cols:
             feature_array = ohe.fit_transform(df[[i]])

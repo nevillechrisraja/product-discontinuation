@@ -17,6 +17,12 @@ model_dir = config["model_path"]["model_dir"]
 filename = config["model_path"]["filename"]
 
 class Modelling:
+    """
+    In this class we will be performing the following operations.
+    1. Perform train test split
+    2. Fit data to the model
+    3. Save the model for future predictions
+    """
     def process(self, df):
         target_col = 'DiscontinuedTF'
         x_train, x_test, y_train, y_test = self.dataset_split(feature_imp_cols, target_col, df)
@@ -38,5 +44,5 @@ class Modelling:
 
     def save_model(self, model):
         path = os.path.join(model_dir)
-        with open(path + '/' + filename + '.sav', 'wb') as f:
+        with open(path + filename + '.sav', 'wb') as f:
             pickle.dump(model, f)
