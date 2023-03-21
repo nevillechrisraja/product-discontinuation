@@ -25,6 +25,7 @@ class PredictPipeline:
     4. Perform prediction
     """
 
+
     def process(self) -> np.array:
         extract_data_obj = ExtractData()
         df = extract_data_obj.extract()
@@ -32,15 +33,20 @@ class PredictPipeline:
         df = pre_processing_obj.process(df.head())
         model = self.load_model()
         df_results = self.predict(df, feature_imp_cols, model)
+        logging.info("Prediction pipeline completed")
         return df_results
+
 
     def load_model(self):
         path = os.path.join(model_dir)
         with open(path + '/' + filename + '.sav', 'rb') as f:
             model = pickle.load(f)
-            return model
+        logging.info("Saved model loaded successfully")
+        return model
+
 
     def predict(self, df, imp_cols, model) -> np.array:
         imp_cols = ast.literal_eval(imp_cols)
         df_results = model.predict(df[imp_cols])
+        logging.info("Prediction for new data points completed successfully")
         return df_results

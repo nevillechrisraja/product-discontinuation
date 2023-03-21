@@ -21,3 +21,4 @@ class TrainPipeline:
 
         modelling_obj = Modelling()
         modelling_obj.process(df)
+        logging.info("Training pipeline completed")
