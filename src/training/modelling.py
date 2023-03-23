@@ -1,11 +1,10 @@
 import logging
 from sklearn.model_selection import train_test_split
 from xgboost import XGBClassifier
-import os
-import pickle
+
 import ast
-
-
+from io import BytesIO
+import joblib
 from configparser import ConfigParser
 
 config = ConfigParser()
@@ -23,11 +22,11 @@ class Modelling:
     2. Fit data to the model
     3. Save the model for future predictions
     """
-    def process(self, df):
+    def process(self, df, s3_client):
         target_col = 'DiscontinuedTF'
         x_train, x_test, y_train, y_test = self.dataset_split(feature_imp_cols, target_col, df)
         model = self.fit_model(x_train, y_train)
-        self.save_model(model)
+        self.write_joblib(model, s3_client)
         logging.info("Modelling completed successfully")
 
     def dataset_split(self, imp_cols, target_col, df):
@@ -45,8 +44,13 @@ class Modelling:
         logging.info("Model fit completed successfully")
         return model
 
-    def save_model(self, model):
-        path = os.path.join(model_dir)
-        with open(path + filename + '.sav', 'wb') as f:
-            pickle.dump(model, f)
-        logging.info("Model saved successfully")
+    def write_joblib(self, model, s3_client):
+        """
+        This method writes a joblib file to a S3 bucket
+        """
+        s3_bucket = 'product-discontinuation'
+        s3_key = 'files/model'
+        with BytesIO() as f:
+            joblib.dump(file, f)
+            f.seek(0)
+            s3_client.upload_fileobj(Bucket = s3_bucket, Key = s3_key, Fileobj = f)
