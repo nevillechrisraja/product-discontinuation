@@ -1,30 +1,28 @@
 import logging
-from fetch.extract_data import ExtractData
-from factory.pre_processing import PreProcessing
-from train.modelling import Modelling
+import argparse
+from training.train_pipeline import TrainPipeline
+from prediction.predict_pipeline import PredictPipeline
 
 logging.basicConfig(filename = "log.txt", level = logging.DEBUG,
                     format = "%(asctime)s %(message)s", datefmt = "%m/%d/%Y %I:%M:%S %p")
 
-def main():
+def main(run_type):
     """
     In this method we will be performing the following operations.
-    1. Extract input data from source
-    2. Perform data pre-processing steps
-    3. Perform ML modelling
+    1. Perform training
+    2. Perform prediction
     """
     logging.info("Execution started successfully")
-
-    extract_data_obj = ExtractData()
-    df = extract_data_obj.extract()
-
-    pre_processing_obj = PreProcessing()
-    df = pre_processing_obj.process(df.head())
-
-    modelling_obj = Modelling()
-    modelling_obj.process(df)
+    if run_type:
+        train_pipeline_obj = TrainPipeline()
+        train_pipeline_obj.process()
+    predict_pipeline_obj = PredictPipeline()
+    predict_pipeline_obj.process()
 
     logging.info("Execution completed successfully")
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-r", dest = "run_type", type = bool, help = "execution flow type")
+    args = parser.parse_args()
+    main(run_type = args.run_type)

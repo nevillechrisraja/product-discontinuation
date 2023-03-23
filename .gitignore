@@ -1,2 +1,5 @@
-src/fetch/__pycache__/
+*__pycache__/
+*.txt
 *.csv
+*.sav
+.idea/
