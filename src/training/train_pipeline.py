@@ -12,7 +12,7 @@ class TrainPipeline:
     3. Perform ML modelling
     """
 
-    def process(self):
+    def process(self, s3_client):
         extract_data_obj = ExtractData()
         df = extract_data_obj.extract()
 
@@ -20,5 +20,5 @@ class TrainPipeline:
         df = pre_processing_obj.process(df.head())
 
         modelling_obj = Modelling()
-        modelling_obj.process(df)
+        modelling_obj.process(df, s3_client)
         logging.info("Training pipeline completed")
