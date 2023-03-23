@@ -1,7 +1,13 @@
 import logging
 import argparse
-from training.train_pipeline import TrainPipeline
-from prediction.predict_pipeline import PredictPipeline
+from dotenv import load_dotenv
+import os
+from utils import s3_connection
+
+load_dotenv()
+
+api_key = os.getenv("API_KEY")
+api_secret = os.getenv("API_SECRET")
 
 logging.basicConfig(filename = "log.txt", level = logging.DEBUG,
                     format = "%(asctime)s %(message)s", datefmt = "%m/%d/%Y %I:%M:%S %p")
@@ -13,6 +19,7 @@ def main(run_type):
     2. Perform prediction
     """
     logging.info("Execution started successfully")
+    s3_conn = s3_connection(api_key, api_secret)
     if run_type:
         train_pipeline_obj = TrainPipeline()
         train_pipeline_obj.process()
