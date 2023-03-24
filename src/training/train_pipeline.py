@@ -12,9 +12,9 @@ class TrainPipeline:
     3. Perform ML modelling
     """
 
-    def process(self, s3_client):
+    def process(self, s3_client, db_user, db_password):
         extract_data_obj = ExtractData()
-        df = extract_data_obj.extract()
+        df = extract_data_obj.extract(db_user, db_password)
 
         pre_processing_obj = PreProcessing()
         df = pre_processing_obj.process(df.head())

@@ -10,6 +10,8 @@ load_dotenv()
 
 api_key = os.getenv("API_KEY")
 api_secret = os.getenv("API_SECRET")
+db_user = os.getenv("DB_USER")
+db_password = os.getenv("DB_PASSWORD")
 
 logging.basicConfig(filename = "log.txt", level = logging.DEBUG,
                     format = "%(asctime)s %(message)s", datefmt = "%m/%d/%Y %I:%M:%S %p")
@@ -24,7 +26,7 @@ def main(run_type):
     s3_client = s3_connection(api_key, api_secret)
     if run_type:
         train_pipeline_obj = TrainPipeline()
-        train_pipeline_obj.process(s3_client)
+        train_pipeline_obj.process(s3_client, db_user, db_password)
     predict_pipeline_obj = PredictPipeline()
     predict_pipeline_obj.process(s3_client)
 
