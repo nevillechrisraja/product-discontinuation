@@ -14,9 +14,9 @@ class PreProcessing:
 
     def process(self, df) -> pd.DataFrame:
         null_count, duplicates = self.check_null(df)
-        categorical_cols = ['Seasonal', 'SpringSummer', 'DiscontinuedTF']
+        categorical_cols = ['seasonal', 'springsummer', 'discontinued']
         df = self.encode_binary_features(categorical_cols, df)
-        categorical_cols = ['DIorDOM', 'Status']
+        categorical_cols = ['diordom', 'status']
         df = self.encode_multi_features(categorical_cols, df)
         logging.info("Preprocessing steps completed successfully")
         return df

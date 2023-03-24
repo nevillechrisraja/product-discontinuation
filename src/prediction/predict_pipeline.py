@@ -6,7 +6,8 @@ import ast
 import numpy as np
 import joblib
 from io import BytesIO
-
+import pandas as pd
+from datetime import datetime
 
 config = ConfigParser()
 file = "config.ini"
@@ -29,15 +30,15 @@ class PredictPipeline:
     """
 
 
-    def process(self, s3_client) -> np.array:
+    def process(self, s3_client, db_user, db_password) -> np.array:
         extract_data_obj = ExtractData()
-        df = extract_data_obj.extract()
+        df = extract_data_obj.extract_data(db_user, db_password)
         pre_processing_obj = PreProcessing()
-        df = pre_processing_obj.process(df.head())
+        df = pre_processing_obj.process(df)
         model = self.read_joblib(s3_client)
         df_results = self.predict(df, feature_imp_cols, model)
+        extract_data_obj.push_data(db_user, db_password, df_results)
         logging.info("Prediction pipeline completed")
-        return df_results
 
 
     def read_joblib(self, s3_client):
@@ -53,11 +54,17 @@ class PredictPipeline:
         return model_file
 
 
-    def predict(self, df, imp_cols, model) -> np.array:
+    def predict(self, df, imp_cols, model) -> pd.DataFrame:
         """
         This method performs prediction on the new data points
         """
+        cols = ['id', 'discontinued', 'date_created']
         imp_cols = ast.literal_eval(imp_cols)
         df_results = model.predict(df[imp_cols])
+        df_results = pd.DataFrame(df_results)
+        df_results['date_created'] = pd.to_datetime(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+        df_results['id'] = df['id']
+        df_results.columns = ['discontinued', 'date_created', 'id']
+        df_results['discontinued'] = df_results['discontinued'].map({1: True, 0: False})
         logging.info("Prediction for new data points completed successfully")
-        return df_results
+        return df_results[cols]

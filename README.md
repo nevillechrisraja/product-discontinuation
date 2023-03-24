@@ -1,11 +1,11 @@
 # Product Discontinuation
 
 ### Project Flow
-1. Extract data from AWS Redshift
+1. Extract source data from AWS Redshift DB
 2. Perform data preprocessing
-3. Perform ML model training
-4. Perform ML prediction
-5. Push prediction results to AWS Redshift
+3. Perform ML model training and save the model in AWS S3
+4. Load the trained model from S3 and perform ML prediction
+5. Push prediction results to AWS Redshift DB
 
 ### Setup
 

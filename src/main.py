@@ -28,7 +28,7 @@ def main(run_type):
         train_pipeline_obj = TrainPipeline()
         train_pipeline_obj.process(s3_client, db_user, db_password)
     predict_pipeline_obj = PredictPipeline()
-    predict_pipeline_obj.process(s3_client)
+    predict_pipeline_obj.process(s3_client, db_user, db_password)
 
     logging.info("Execution completed successfully")
 

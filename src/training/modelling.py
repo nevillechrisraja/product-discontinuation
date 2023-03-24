@@ -24,7 +24,7 @@ class Modelling:
     3. Save the model for future predictions
     """
     def process(self, df, s3_client):
-        target_col = 'DiscontinuedTF'
+        target_col = 'discontinued'
         x_train, x_test, y_train, y_test = self.dataset_split(feature_imp_cols, target_col, df)
         model = self.fit_model(x_train, y_train)
         self.write_joblib(model, s3_client)
