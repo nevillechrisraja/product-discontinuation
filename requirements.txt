@@ -3,3 +3,7 @@ scikit-learn==1.1.2
 xgboost==1.7.3
 boto3==1.26.82
 python-dotenv==1.0.0
+redshift-connector==2.0.910
+
+
+
