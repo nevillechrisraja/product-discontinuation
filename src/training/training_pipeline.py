@@ -1,10 +1,10 @@
 import logging
-from fetch.extract_data import ExtractData
-from factory.pre_processing import PreProcessing
+from fetch.database_orm import DatabaseORM
+from factory.preprocessor import Preprocessor
 from training.modelling import Modelling
 
 
-class TrainPipeline:
+class TrainingPipeline:
     """
     In this class we will be performing the following operations.
     1. Extract input data from source
@@ -13,11 +13,11 @@ class TrainPipeline:
     """
 
     def process(self, s3_client, db_user, db_password):
-        extract_data_obj = ExtractData()
-        df = extract_data_obj.extract_data(db_user, db_password)
+        database_orm_obj = DatabaseORM()
+        df = database_orm_obj.extract_data(db_user, db_password)
 
-        pre_processing_obj = PreProcessing()
-        df = pre_processing_obj.process(df)
+        preprocessor_obj = Preprocessor()
+        df = preprocessor_obj.process(df)
 
         modelling_obj = Modelling()
         modelling_obj.process(df, s3_client)
