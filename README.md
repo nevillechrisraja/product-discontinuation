@@ -1,6 +1,6 @@
 # Product Discontinuation
 
-### Project Flow
+### Project Steps
 1. Extract source data from AWS Redshift DB
 2. Perform data preprocessing
 3. Perform ML model training and save the model in AWS S3
@@ -9,9 +9,24 @@
 
 ### Setup
 
-The project code will be built using Docker Containers
+To run using Docker containers
+
+1. Build docker image.
+
+    _'docker build -t <<user.name>>/product-discontinuation .'_
+
+2. Run container.
+
+    _'docker run --name project-product-discontinuation <<user.name>>/product-discontinuation -r "TRUE"'_
+
+Note:
+1. If the container name already exists, then use the below command to remove the container before issuing docker run command.
+
+    _'docker rm project-product-discontinuation'_
 
 ### Output
+
+The output will contain a list of 
 
 ### Progress
 
