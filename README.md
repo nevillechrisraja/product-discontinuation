@@ -7,9 +7,7 @@
 4. Load the trained model from S3 and perform ML prediction
 5. Push prediction results to AWS Redshift DB
 
-### Setup
-
-To run using Docker containers
+### To run using Docker containers
 
 1. Build docker image.
 
@@ -17,7 +15,7 @@ To run using Docker containers
 
 2. Run container.
 
-    _'docker run --name project-product-discontinuation <<user.name>>/product-discontinuation -r "TRUE"'_
+    _'docker run --name project-product-discontinuation <<user.name>>/product-discontinuation -r TRUE'_
 
 Note:
 1. If the container name already exists, then use the below command to remove the container before issuing docker run command.
@@ -26,6 +24,9 @@ Note:
 
 ### Output
 
+1. The output will be stored in the table 'catalogue_discontinued' in the 'data_science' database.
+
+2. The output contains the fields Id and the predicted Discontinued status with values as True/False.
 
 ### Progress
 
