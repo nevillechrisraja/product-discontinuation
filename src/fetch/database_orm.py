@@ -10,7 +10,7 @@ config.read(file)
 table_target = config["redshift_connection"]["table_target"]
 
 
-class ExtractData:
+class DatabaseORM:
     """
     This class handles
     1. Data extraction from source db

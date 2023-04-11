@@ -3,8 +3,8 @@ import argparse
 from dotenv import load_dotenv
 import os
 from utils import s3_connection
-from training.train_pipeline import TrainPipeline
-from prediction.predict_pipeline import PredictPipeline
+from training.training_pipeline import TrainingPipeline
+from prediction.prediction_pipeline import PredictionPipeline
 
 load_dotenv()
 
@@ -25,10 +25,10 @@ def main(run_type):
     logging.info("Execution started successfully")
     s3_client = s3_connection(api_key, api_secret)
     if run_type:
-        train_pipeline_obj = TrainPipeline()
-        train_pipeline_obj.process(s3_client, db_user, db_password)
-    predict_pipeline_obj = PredictPipeline()
-    predict_pipeline_obj.process(s3_client, db_user, db_password)
+        training_pipeline_obj = TrainingPipeline()
+        training_pipeline_obj.process(s3_client, db_user, db_password)
+    prediction_pipeline_obj = PredictionPipeline()
+    prediction_pipeline_obj.process(s3_client, db_user, db_password)
 
     logging.info("Execution completed successfully")
 

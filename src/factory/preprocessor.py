@@ -6,7 +6,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 
-class PreProcessing:
+class Preprocessor:
     """
     This class handles entire data preprocessing steps
     """
@@ -17,7 +17,7 @@ class PreProcessing:
         categorical_cols = ['seasonal', 'springsummer', 'discontinued']
         df = self.encode_binary_features(categorical_cols, df)
         categorical_cols = ['diordom', 'status']
-        df = self.encode_multi_features(categorical_cols, df)
+        df = self.encode_multi_category_features(categorical_cols, df)
         logging.info("Preprocessing steps completed successfully")
         return df
 
@@ -43,7 +43,7 @@ class PreProcessing:
         return df
 
 
-    def encode_multi_features(self, cols, df) -> pd.DataFrame:
+    def encode_multi_category_features(self, cols, df) -> pd.DataFrame:
         """
         This method encodes the multi categorical features to numerical features
         """
