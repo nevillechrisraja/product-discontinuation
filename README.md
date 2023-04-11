@@ -26,7 +26,6 @@ Note:
 
 ### Output
 
-The output will contain a list of 
 
 ### Progress
 
