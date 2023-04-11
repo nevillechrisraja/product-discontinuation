@@ -1,6 +1,6 @@
 # Product Discontinuation
 
-### Project Flow
+### End to end project flow
 1. Extract data from AWS Redshift
 2. Perform data preprocessing
 3. Perform ML model training
@@ -15,4 +15,4 @@ The project code will be built using Docker Containers
 
 ### Progress
 
-Code work is carried out on separate feature branches, then merged to Dev.
+Code work is carried out on separate feature branches, then merged to Dev. Entire code is now available in Dev branch.
