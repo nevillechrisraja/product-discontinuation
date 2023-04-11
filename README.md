@@ -24,7 +24,7 @@ Note:
 
 ### Output
 
-1. The output will be stored in the table 'catalogue_discontinued' in the 'data_science' database.
+1. The output are stored in the table 'catalogue_discontinued' in the 'data_science' database.
 
 2. The output contains the fields Id and the predicted Discontinued status with values as True/False.
 
